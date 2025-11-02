@@ -276,16 +276,12 @@ bool rgb_matrix_indicators_user(void) {
 
     uint8_t current_layer = get_highest_layer(layer_state);
     HSV layer_color;
-    bool is_base_layer = false;
 
-    // Determine layer color
     switch (current_layer) {
         case _COLEMAK_PC:
         case _COLEMAK_MAC:
         case _QWERTY_GAMING:
-            // Base layers use dim white for all keys except thumbs
             layer_color = BASE_DEFAULT_COLOR;
-            is_base_layer = true;
             break;
         case _NUMBERS:
             layer_color = NUMBERS_LAYER_COLOR;
