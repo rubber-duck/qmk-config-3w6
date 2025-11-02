@@ -218,19 +218,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define BASE_COLEMAK_PC_COLOR (HSV){HSV_BLUE}
 #define BASE_COLEMAK_MAC_COLOR (HSV){HSV_WHITE}
 #define BASE_QWERTY_GAMING_COLOR (HSV){HSV_RED}
+#define BASE_DEFAULT_COLOR (HSV){0, 0, 50}  // Dim white for base layer non-thumb keys
 #define NUMBERS_LAYER_COLOR (HSV){HSV_ORANGE}
 #define FUNCTION_LAYER_COLOR (HSV){HSV_YELLOW}
 #define SYMBOLS_LAYER_COLOR (HSV){HSV_GREEN}
 #define BRACKETS_LAYER_COLOR (HSV){HSV_CYAN}
 #define NAVIGATION_LAYER_COLOR (HSV){HSV_MAGENTA}
 #define SHORTCUTS_LAYER_COLOR (HSV){HSV_PURPLE}
-#define MODIFIER_COLOR (HSV){HSV_PINK}
+#define MODIFIER_COLOR (HSV){HSV_RED}
 
 // LED indices for thumb keys
 const uint8_t thumb_keys[] = {15, 16, 17, 18, 19, 20};
 
-// LED indices for middle row
-const uint8_t middle_row_keys[] = {5, 6, 7, 8, 9, 26, 27, 28, 29, 30};
+// LED indices for home row modifier keys (based on HR_A, HR_R, HR_S, HR_T on left, HR_N, HR_E, HR_I, HR_O on right)
+const uint8_t gui_keys[] = {9, 26};
+const uint8_t alt_keys[] = {8, 29};
+const uint8_t ctrl_keys[] = {7, 28};
+const uint8_t shift_keys[] = {6, 27};
+
+// LED indices for function layer base layer switch keys
+const uint8_t fn_pc_key[] = {35};
+const uint8_t fn_mac_key[] = {26};
+const uint8_t fn_gaming_key[] = {25};
 
 // Helper function to set a uniform color
 void set_color(HSV hsv) {
@@ -250,7 +259,7 @@ bool rgb_matrix_indicators_user(void) {
     HSV base_color;
     uint8_t current_base_layer = get_highest_layer(default_layer_state);
 
-    // Determine base layer color
+    // Determine base layer color (for thumb keys)
     switch (current_base_layer) {
         case _COLEMAK_MAC:
             base_color = BASE_COLEMAK_MAC_COLOR;
@@ -265,10 +274,18 @@ bool rgb_matrix_indicators_user(void) {
     }
 
     uint8_t current_layer = get_highest_layer(layer_state);
-    HSV layer_color = base_color;
+    HSV layer_color;
+    bool is_base_layer = false;
 
     // Determine layer color
     switch (current_layer) {
+        case _COLEMAK_PC:
+        case _COLEMAK_MAC:
+        case _QWERTY_GAMING:
+            // Base layers use dim white for all keys except thumbs
+            layer_color = BASE_DEFAULT_COLOR;
+            is_base_layer = true;
+            break;
         case _NUMBERS:
             layer_color = NUMBERS_LAYER_COLOR;
             break;
@@ -289,18 +306,41 @@ bool rgb_matrix_indicators_user(void) {
         case _SHORTCUTS_MAC:
             layer_color = SHORTCUTS_LAYER_COLOR;
             break;
+        default:
+            layer_color = BASE_DEFAULT_COLOR;
+            break;
     }
 
     // Set layer color for all keys
     set_color(layer_color);
 
-    // Always set thumb keys to base layer color
-    set_keys_color(thumb_keys, sizeof(thumb_keys), base_color);
+    #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 
-    // Check for modifiers and set middle row color
-    uint8_t mods = get_mods();
-    if ((mods & MOD_MASK_SHIFT) || (mods & MOD_MASK_CTRL) || (mods & MOD_MASK_ALT) || (mods & MOD_MASK_GUI)) {
-        set_keys_color(middle_row_keys, sizeof(middle_row_keys), MODIFIER_COLOR);
+    // Always set thumb keys to base layer color
+    set_keys_color(thumb_keys, ARRAY_SIZE(thumb_keys), base_color);
+
+    // Special handling for FUNCTION layer: light up base layer switch keys
+    if (current_layer == _FUNCTION) {
+        set_keys_color(fn_pc_key, ARRAY_SIZE(fn_pc_key), BASE_COLEMAK_PC_COLOR);
+        set_keys_color(fn_mac_key, ARRAY_SIZE(fn_mac_key), BASE_COLEMAK_MAC_COLOR);
+        set_keys_color(fn_gaming_key, ARRAY_SIZE(fn_gaming_key), BASE_QWERTY_GAMING_COLOR);
+    }
+
+    // Check for modifiers and light up specific modifier keys (only if not on base layer to avoid confusion with gaming)
+    if (!is_base_layer) {
+        uint8_t mods = get_mods();
+        if (mods & MOD_MASK_SHIFT) {
+            set_keys_color(shift_keys, ARRAY_SIZE(shift_keys), MODIFIER_COLOR);
+        }
+        if (mods & MOD_MASK_CTRL) {
+            set_keys_color(ctrl_keys, ARRAY_SIZE(ctrl_keys), MODIFIER_COLOR);
+        }
+        if (mods & MOD_MASK_ALT) {
+            set_keys_color(alt_keys, ARRAY_SIZE(alt_keys), MODIFIER_COLOR);
+        }
+        if (mods & MOD_MASK_GUI) {
+            set_keys_color(gui_keys, ARRAY_SIZE(gui_keys), MODIFIER_COLOR);
+        }
     }
     
     return false;
@@ -310,7 +350,35 @@ void keyboard_post_init_user(void) {
     // Set initial RGB mode to solid color and color to blue (PC default)
     rgb_matrix_enable();
     rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_set_flags(LED_FLAG_ALL);
     rgb_matrix_indicators_user();
+}
+
+// Process key presses to update RGB instantly on modifier and layer changes
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // Home row mods
+        case HR_A:
+        case HR_R:
+        case HR_S:
+        case HR_T:
+        case HR_N:
+        case HR_E:
+        case HR_I:
+        case HR_O:
+        // Layer tap keys
+        case TH_ESC_PC:
+        case TH_ESC_MAC:
+        case TH_SPC:
+        case TH_TAB_PC:
+        case TH_TAB_MAC:
+        case TH_ENT:
+        case TH_BSPC:
+        case TH_DEL:
+            rgb_matrix_indicators_user();
+            break;
+    }
+    return true;
 }
 
 // Function to handle OS detection changes
