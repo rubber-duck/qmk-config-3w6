@@ -216,17 +216,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // Define colors for layers
-#define BASE_COLEMAK_PC_COLOR (HSV){HSV_BLUE}
-#define BASE_COLEMAK_MAC_COLOR (HSV){HSV_WHITE}
-#define BASE_QWERTY_GAMING_COLOR (HSV){HSV_RED}
-#define BASE_DEFAULT_COLOR (HSV){0, 0, 50}  // Dim white for base layer non-thumb keys
-#define NUMBERS_LAYER_COLOR (HSV){HSV_ORANGE}
-#define FUNCTION_LAYER_COLOR (HSV){HSV_YELLOW}
-#define SYMBOLS_LAYER_COLOR (HSV){HSV_GREEN}
-#define BRACKETS_LAYER_COLOR (HSV){HSV_CYAN}
-#define NAVIGATION_LAYER_COLOR (HSV){HSV_MAGENTA}
-#define SHORTCUTS_LAYER_COLOR (HSV){HSV_PURPLE}
-#define MODIFIER_COLOR (HSV){HSV_RED}
+#define BASE_COLEMAK_PC_COLOR (HSV){170, 255, 50}      // Dim blue
+#define BASE_COLEMAK_MAC_COLOR (HSV){0, 0, 50}         // Dim white
+#define BASE_QWERTY_GAMING_COLOR (HSV){0, 255, 50}     // Dim red
+#define BASE_DEFAULT_COLOR (HSV){0, 0, 50}             // Dim white for base layer non-thumb keys
+#define NUMBERS_LAYER_COLOR (HSV){28, 255, 50}         // Dim orange
+#define FUNCTION_LAYER_COLOR (HSV){43, 255, 50}        // Dim yellow
+#define SYMBOLS_LAYER_COLOR (HSV){85, 255, 50}         // Dim green
+#define BRACKETS_LAYER_COLOR (HSV){128, 255, 50}       // Dim cyan
+#define NAVIGATION_LAYER_COLOR (HSV){213, 255, 50}     // Dim magenta
+#define SHORTCUTS_LAYER_COLOR (HSV){191, 255, 50}      // Dim purple
+#define MODIFIER_COLOR (HSV){0, 255, 80}               // Slightly brighter red for visibility
 
 // LED indices for thumb keys
 const uint8_t thumb_keys[] = {15, 16, 17, 18, 19, 20};
