@@ -69,11 +69,12 @@ enum layers
 #define SYM_RBRC KC_RBRC
 #define SYM_LABR LSFT(KC_COMM)
 #define SYM_RABR LSFT(KC_DOT)
-#define SYM_LCBR LSFT(KC_SCLN)
-#define SYM_RCBR LSFT(KC_SCLN)
+#define SYM_LCBR LSFT(KC_LBRC)
+#define SYM_RCBR LSFT(KC_RBRC)
 #define SYM_LPRN LSFT(KC_9)
 #define SYM_RPRN LSFT(KC_0)
 #define SYM_SCLN KC_SCLN
+#define SYM_CLN LSFT(KC_SCLN)
 #define SYM_GRV KC_GRV
 #define SYM_QUOT KC_QUOT
 #define SYM_DQUO LSFT(KC_QUOT)
@@ -182,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            KC_NO, KC_NO, KC_NO,        KC_NO, KC_NO, KC_NO
     ),
     [_BRACKETS] = LAYOUT_split_3x5_3(
-        SYM_LBRC, SYM_RBRC, SYM_LABR, SYM_RABR, SYM_LCBR,                  SYM_RCBR, SYM_LABR, SYM_RABR,  SYM_LBRC, SYM_RBRC,
+        SYM_LBRC, SYM_RBRC, SYM_LABR, SYM_RABR, SYM_CLN,                   SYM_CLN,  SYM_LABR, SYM_RABR,  SYM_LBRC, SYM_RBRC,
         SYM_LCBR, SYM_RCBR, SYM_LPRN, SYM_RPRN, SYM_SCLN,                  SYM_SCLN, SYM_LPRN, SYM_RPRN,  SYM_LCBR, SYM_RCBR,
         SYM_GRV,  SYM_QUOT, SYM_DQUO, SYM_EXCL, SYM_EQL,                   SYM_EQL,  SYM_EXCL, SYM_DQUO,  SYM_QUOT, SYM_GRV,
                                            KC_NO, KC_NO, KC_NO,        KC_NO, KC_BSPC, KC_DEL
