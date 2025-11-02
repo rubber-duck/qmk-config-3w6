@@ -315,8 +315,6 @@ bool rgb_matrix_indicators_user(void) {
     // Set layer color for all keys
     set_color(layer_color);
 
-    #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
-
     // Always set thumb keys to base layer color
     set_keys_color(thumb_keys, ARRAY_SIZE(thumb_keys), base_color);
 
@@ -327,21 +325,19 @@ bool rgb_matrix_indicators_user(void) {
         set_keys_color(fn_gaming_key, ARRAY_SIZE(fn_gaming_key), BASE_QWERTY_GAMING_COLOR);
     }
 
-    // Check for modifiers and light up specific modifier keys (only if not on base layer to avoid confusion with gaming)
-    if (!is_base_layer) {
-        uint8_t mods = get_mods();
-        if (mods & MOD_MASK_SHIFT) {
-            set_keys_color(shift_keys, ARRAY_SIZE(shift_keys), MODIFIER_COLOR);
-        }
-        if (mods & MOD_MASK_CTRL) {
-            set_keys_color(ctrl_keys, ARRAY_SIZE(ctrl_keys), MODIFIER_COLOR);
-        }
-        if (mods & MOD_MASK_ALT) {
-            set_keys_color(alt_keys, ARRAY_SIZE(alt_keys), MODIFIER_COLOR);
-        }
-        if (mods & MOD_MASK_GUI) {
-            set_keys_color(gui_keys, ARRAY_SIZE(gui_keys), MODIFIER_COLOR);
-        }
+    // Check for modifiers and light up specific modifier keys
+    uint8_t mods = get_mods();
+    if (mods & MOD_MASK_SHIFT) {
+        set_keys_color(shift_keys, ARRAY_SIZE(shift_keys), MODIFIER_COLOR);
+    }
+    if (mods & MOD_MASK_CTRL) {
+        set_keys_color(ctrl_keys, ARRAY_SIZE(ctrl_keys), MODIFIER_COLOR);
+    }
+    if (mods & MOD_MASK_ALT) {
+        set_keys_color(alt_keys, ARRAY_SIZE(alt_keys), MODIFIER_COLOR);
+    }
+    if (mods & MOD_MASK_GUI) {
+        set_keys_color(gui_keys, ARRAY_SIZE(gui_keys), MODIFIER_COLOR);
     }
     
     return false;
