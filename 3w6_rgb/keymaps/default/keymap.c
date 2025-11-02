@@ -233,9 +233,9 @@ const uint8_t thumb_keys[] = {15, 16, 17, 18, 19, 20};
 
 // LED indices for home row modifier keys (based on HR_A, HR_R, HR_S, HR_T on left, HR_N, HR_E, HR_I, HR_O on right)
 const uint8_t gui_keys[] = {9, 26};
-const uint8_t alt_keys[] = {8, 29};
+const uint8_t alt_keys[] = {8, 27};
 const uint8_t ctrl_keys[] = {7, 28};
-const uint8_t shift_keys[] = {6, 27};
+const uint8_t shift_keys[] = {6, 29};
 
 // LED indices for function layer base layer switch keys
 const uint8_t fn_pc_key[] = {35};
