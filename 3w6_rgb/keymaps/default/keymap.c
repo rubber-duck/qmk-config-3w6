@@ -30,6 +30,7 @@ enum layers
     _NAVIGATION_MAC,
     _SHORTCUTS_PC,
     _SHORTCUTS_MAC,
+    _TMUX,
     _FUNCTION,
 };
 
@@ -37,6 +38,35 @@ enum layers
 enum custom_keycodes {
     CK_PC_DLLS = SAFE_RANGE, // Delete to line start (Shift+Home, Backspace)
     CK_PC_DLLE,              // Delete to line end (Shift+End, Delete)
+    TM_WN1,
+    TM_WN2,
+    TM_WN3,
+    TM_WN4,
+    TM_WN5,
+    TM_WN6,
+    TM_WN7,
+    TM_WN8,
+    TM_WN9,
+    TM_WN0,
+    TM_NEW,
+    TM_PREV,
+    TM_NEXT,
+    TM_LAST,
+    TM_TREE,
+    TM_LEFT,
+    TM_DOWN,
+    TM_UP,
+    TM_RGHT,
+    TM_SPLH,
+    TM_SPLV,
+    TM_ZOOM,
+    TM_KILL,
+    TM_RENM,
+    TM_DET,
+    TM_RLFT,
+    TM_RDWN,
+    TM_RUP,
+    TM_RRGT,
 };
 
 // Layer-tap: PC
@@ -53,6 +83,10 @@ enum custom_keycodes {
 #define TH_ENT LT(_NUMBERS, KC_ENT)
 #define TH_BSPC LT(_SYMBOLS, KC_BSPC)
 #define TH_DEL LT(_FUNCTION, KC_DEL)
+
+// Layer-tap: tmux, positioned on the inner top-row index keys
+#define TMUX_L LT(_TMUX, KC_B)
+#define TMUX_R LT(_TMUX, KC_J)
 
 // Home row mods
 #define HR_A LGUI_T(KC_A)
@@ -174,6 +208,17 @@ enum custom_keycodes {
 #define SM_QFIX G(KC_DOT)
 #define SM_CTAB G(KC_W)
 
+#define TMUX_FIRST TM_WN1
+#define TMUX_LAST TM_RRGT
+
+static const uint16_t tmux_command_keys[] = {
+    KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
+    KC_C, KC_P, KC_N, KC_L, KC_W,
+    KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
+    KC_H, KC_V, KC_Z, KC_X, KC_COMM, KC_D,
+    S(KC_H), S(KC_J), S(KC_K), S(KC_L),
+};
+
 #define LAYOUT_split_3x5_3_mirrored( \
     k00, k01, k02, k03, k04, \
     k10, k11, k12, k13, k14, \
@@ -189,14 +234,14 @@ LAYOUT_split_3x5_3( \
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK_PC] = LAYOUT_split_3x5_3(
-        KC_Q,  KC_W,  KC_F,       KC_P,       KC_B,           KC_J,    KC_L,     KC_U,     KC_Y,    KC_QUOT,
+        KC_Q,  KC_W,  KC_F,       KC_P,       TMUX_L,         TMUX_R,  KC_L,     KC_U,     KC_Y,    KC_QUOT,
         HR_A,  HR_R,  HR_S,       HR_T,       KC_G,           KC_M,    HR_N,     HR_E,     HR_I,    HR_O,
         KC_Z,  KC_X,  KC_C,       KC_D,       KC_V,           KC_K,    KC_H,     KC_COMM,  KC_DOT,  KC_SLSH,
                       TH_ESC_PC,  TH_SPC_PC,  TH_TAB_PC,      TH_ENT,  TH_BSPC,  TH_DEL
     ),
 
     [_COLEMAK_MAC] = LAYOUT_split_3x5_3(
-        KC_Q,  KC_W,  KC_F,        KC_P,        KC_B,            KC_J,    KC_L,     KC_U,     KC_Y,    KC_QUOT,
+        KC_Q,  KC_W,  KC_F,        KC_P,        TMUX_L,          TMUX_R,  KC_L,     KC_U,     KC_Y,    KC_QUOT,
         HR_A,  HR_R,  HR_S,        HR_T,        KC_G,            KC_M,    HR_N,     HR_E,     HR_I,    HR_O,
         KC_Z,  KC_X,  KC_C,        KC_D,        KC_V,            KC_K,    KC_H,     KC_COMM,  KC_DOT,  KC_SLSH,
                       TH_ESC_MAC,  TH_SPC_MAC,  TH_TAB_MAC,      TH_ENT,  TH_BSPC,  TH_DEL
@@ -265,6 +310,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             KC_TRNS,  KC_TRNS,  KC_TRNS,      KC_TRNS,  KC_TRNS,  KC_TRNS
     ),
 
+    [_TMUX] = LAYOUT_split_3x5_3(
+        TM_WN1,   TM_WN2,   TM_WN3,   TM_WN4,   TM_WN5,       TM_WN6,   TM_WN7,   TM_WN8,   TM_WN9,  TM_WN0,
+        TM_NEW,   TM_PREV,  TM_NEXT,  TM_LAST,  TM_TREE,      TM_TREE,  TM_LEFT,  TM_DOWN,  TM_UP,   TM_RGHT,
+        TM_SPLH,  TM_SPLV,  TM_ZOOM,  TM_KILL,  TM_RENM,      TM_DET,   TM_RLFT,  TM_RDWN,  TM_RUP,  TM_RRGT,
+                            KC_TRNS,  KC_TRNS,  KC_TRNS,      KC_TRNS,  KC_TRNS,  KC_TRNS
+    ),
+
     [_FUNCTION] = LAYOUT_split_3x5_3_mirrored(
         DF(_COLEMAK_PC),     KC_F9,  KC_F8,  KC_F7,  KC_F10,
         DF(_COLEMAK_MAC),    KC_F6,  KC_F5,  KC_F4,  KC_F11,
@@ -283,6 +335,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define BRACKETS_LAYER_COLOR (RGB){0, 50, 50}
 #define NAVIGATION_LAYER_COLOR (RGB){50, 0, 50}
 #define SHORTCUTS_LAYER_COLOR (RGB){25, 0, 50}
+#define TMUX_LAYER_COLOR (RGB){80, 45, 0}
 #define MODIFIER_COLOR (RGB){80, 0, 0}
 
 // LED indices for thumb keys
@@ -351,6 +404,9 @@ bool rgb_matrix_indicators_user(void) {
         case _SHORTCUTS_MAC:
             layer_color = SHORTCUTS_LAYER_COLOR;
             break;
+        case _TMUX:
+            layer_color = TMUX_LAYER_COLOR;
+            break;
         default:
             layer_color = base_color;
             break;
@@ -390,6 +446,14 @@ void keyboard_post_init_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode >= TMUX_FIRST && keycode <= TMUX_LAST) {
+        if (record->event.pressed) {
+            tap_code16(C(KC_A));
+            tap_code16(tmux_command_keys[keycode - TMUX_FIRST]);
+        }
+        return false;
+    }
+
     switch (keycode) {
         // Multi-key macros
         case CK_PC_DLLS:
@@ -422,6 +486,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TH_ENT:
         case TH_BSPC:
         case TH_DEL:
+        case TMUX_L:
+        case TMUX_R:
             rgb_matrix_indicators_user();
             break;
     }
@@ -471,6 +537,8 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
         case TH_ENT:
         case TH_BSPC:
         case TH_DEL:
+        case TMUX_L:
+        case TMUX_R:
             return true;
         default:
             return false;

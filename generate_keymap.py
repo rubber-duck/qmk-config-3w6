@@ -31,14 +31,16 @@ def format_layer(name, layout_macro, grid):
                 parts.append(f"{key + ',':<{w + 1 + pad}}")
         return "".join(parts).rstrip()
 
-    return "\n".join([
-        f"    [{name}] = {layout_macro}(",
-        "        " + fmt_row(0, False),
-        "        " + fmt_row(1, False),
-        "        " + fmt_row(2, False),
-        "        " + fmt_row(3, True),
-        "    ),",
-    ])
+    return "\n".join(
+        [
+            f"    [{name}] = {layout_macro}(",
+            "        " + fmt_row(0, False),
+            "        " + fmt_row(1, False),
+            "        " + fmt_row(2, False),
+            "        " + fmt_row(3, True),
+            "    ),",
+        ]
+    )
 
 
 def format_mirrored_layer(name, grid):
@@ -64,14 +66,16 @@ def format_mirrored_layer(name, grid):
                 parts.append(f"{key + ',':<{w + 1 + pad}}")
         return "".join(parts).rstrip()
 
-    return "\n".join([
-        f"    [{name}] = LAYOUT_split_3x5_3_mirrored(",
-        "        " + fmt_row(0, False),
-        "        " + fmt_row(1, False),
-        "        " + fmt_row(2, False),
-        "        " + fmt_row(3, True),
-        "    ),",
-    ])
+    return "\n".join(
+        [
+            f"    [{name}] = LAYOUT_split_3x5_3_mirrored(",
+            "        " + fmt_row(0, False),
+            "        " + fmt_row(1, False),
+            "        " + fmt_row(2, False),
+            "        " + fmt_row(3, True),
+            "    ),",
+        ]
+    )
 
 
 # ── Layer definitions ─────────────────────────────────────────────────────
@@ -79,96 +83,512 @@ def format_mirrored_layer(name, grid):
 
 layers = [
     # ── Base layers ───────────────────────────────────────────────────────
-    ("_COLEMAK_PC", "full", [
-        ["KC_Q",  "KC_W",  "KC_F",    "KC_P",       "KC_B",       "KC_J",    "KC_L",    "KC_U",     "KC_Y",    "KC_QUOT"],
-        ["HR_A",  "HR_R",  "HR_S",    "HR_T",       "KC_G",       "KC_M",    "HR_N",    "HR_E",     "HR_I",    "HR_O"],
-        ["KC_Z",  "KC_X",  "KC_C",    "KC_D",       "KC_V",       "KC_K",    "KC_H",    "KC_COMM",  "KC_DOT",  "KC_SLSH"],
-        ["",      "",      "TH_ESC_PC", "TH_SPC_PC", "TH_TAB_PC", "TH_ENT",  "TH_BSPC", "TH_DEL",  "",        ""],
-    ]),
-    ("_COLEMAK_MAC", "full", [
-        ["KC_Q",  "KC_W",  "KC_F",    "KC_P",         "KC_B",         "KC_J",    "KC_L",    "KC_U",     "KC_Y",    "KC_QUOT"],
-        ["HR_A",  "HR_R",  "HR_S",    "HR_T",         "KC_G",         "KC_M",    "HR_N",    "HR_E",     "HR_I",    "HR_O"],
-        ["KC_Z",  "KC_X",  "KC_C",    "KC_D",         "KC_V",         "KC_K",    "KC_H",    "KC_COMM",  "KC_DOT",  "KC_SLSH"],
-        ["",      "",      "TH_ESC_MAC", "TH_SPC_MAC", "TH_TAB_MAC",  "TH_ENT",  "TH_BSPC", "TH_DEL",  "",        ""],
-    ]),
-    ("_QWERTY_GAMING", "full", [
-        ["KC_Q",  "KC_W",  "KC_E",  "KC_R",    "KC_T",      "KC_Y",     "KC_U",    "KC_I",     "KC_O",    "KC_P"],
-        ["KC_A",  "KC_S",  "KC_D",  "KC_F",    "KC_G",      "KC_H",     "KC_J",    "KC_K",     "KC_L",    "KC_SCLN"],
-        ["KC_Z",  "KC_X",  "KC_C",  "KC_V",    "KC_B",      "KC_N",     "KC_M",    "KC_COMM",  "KC_DOT",  "KC_SLSH"],
-        ["",      "",      "KC_ESC", "KC_SPC",  "KC_TAB",    "KC_ENT",   "KC_BSPC", "KC_DEL",   "",        ""],
-    ]),
-
+    (
+        "_COLEMAK_PC",
+        "full",
+        [
+            [
+                "KC_Q",
+                "KC_W",
+                "KC_F",
+                "KC_P",
+                "TMUX_L",
+                "TMUX_R",
+                "KC_L",
+                "KC_U",
+                "KC_Y",
+                "KC_QUOT",
+            ],
+            [
+                "HR_A",
+                "HR_R",
+                "HR_S",
+                "HR_T",
+                "KC_G",
+                "KC_M",
+                "HR_N",
+                "HR_E",
+                "HR_I",
+                "HR_O",
+            ],
+            [
+                "KC_Z",
+                "KC_X",
+                "KC_C",
+                "KC_D",
+                "KC_V",
+                "KC_K",
+                "KC_H",
+                "KC_COMM",
+                "KC_DOT",
+                "KC_SLSH",
+            ],
+            [
+                "",
+                "",
+                "TH_ESC_PC",
+                "TH_SPC_PC",
+                "TH_TAB_PC",
+                "TH_ENT",
+                "TH_BSPC",
+                "TH_DEL",
+                "",
+                "",
+            ],
+        ],
+    ),
+    (
+        "_COLEMAK_MAC",
+        "full",
+        [
+            [
+                "KC_Q",
+                "KC_W",
+                "KC_F",
+                "KC_P",
+                "TMUX_L",
+                "TMUX_R",
+                "KC_L",
+                "KC_U",
+                "KC_Y",
+                "KC_QUOT",
+            ],
+            [
+                "HR_A",
+                "HR_R",
+                "HR_S",
+                "HR_T",
+                "KC_G",
+                "KC_M",
+                "HR_N",
+                "HR_E",
+                "HR_I",
+                "HR_O",
+            ],
+            [
+                "KC_Z",
+                "KC_X",
+                "KC_C",
+                "KC_D",
+                "KC_V",
+                "KC_K",
+                "KC_H",
+                "KC_COMM",
+                "KC_DOT",
+                "KC_SLSH",
+            ],
+            [
+                "",
+                "",
+                "TH_ESC_MAC",
+                "TH_SPC_MAC",
+                "TH_TAB_MAC",
+                "TH_ENT",
+                "TH_BSPC",
+                "TH_DEL",
+                "",
+                "",
+            ],
+        ],
+    ),
+    (
+        "_QWERTY_GAMING",
+        "full",
+        [
+            [
+                "KC_Q",
+                "KC_W",
+                "KC_E",
+                "KC_R",
+                "KC_T",
+                "KC_Y",
+                "KC_U",
+                "KC_I",
+                "KC_O",
+                "KC_P",
+            ],
+            [
+                "KC_A",
+                "KC_S",
+                "KC_D",
+                "KC_F",
+                "KC_G",
+                "KC_H",
+                "KC_J",
+                "KC_K",
+                "KC_L",
+                "KC_SCLN",
+            ],
+            [
+                "KC_Z",
+                "KC_X",
+                "KC_C",
+                "KC_V",
+                "KC_B",
+                "KC_N",
+                "KC_M",
+                "KC_COMM",
+                "KC_DOT",
+                "KC_SLSH",
+            ],
+            [
+                "",
+                "",
+                "KC_ESC",
+                "KC_SPC",
+                "KC_TAB",
+                "KC_ENT",
+                "KC_BSPC",
+                "KC_DEL",
+                "",
+                "",
+            ],
+        ],
+    ),
     # ── Symbols (mirrored) ────────────────────────────────────────────────
-    ("_SYMBOLS", "mirrored", [
-        ["YM_AT",    "YM_DLR",   "YM_HASH",  "YM_PERC",  "YM_ASTR"],
-        ["YM_AMPR",  "YM_PIPE",  "YM_CRET", "YM_BSLS",  "YM_SLSH"],
-        ["YM_TILD",  "YM_PLUS",  "YM_MINS",  "YM_UNDS",  "YM_QUES"],
-        ["",  "",  "KC_NO",  "KC_NO",  "KC_NO",  "KC_NO",  "KC_NO",  "KC_NO",  "",  ""],
-    ]),
-
+    (
+        "_SYMBOLS",
+        "mirrored",
+        [
+            ["YM_AT", "YM_DLR", "YM_HASH", "YM_PERC", "YM_ASTR"],
+            ["YM_AMPR", "YM_PIPE", "YM_CRET", "YM_BSLS", "YM_SLSH"],
+            ["YM_TILD", "YM_PLUS", "YM_MINS", "YM_UNDS", "YM_QUES"],
+            ["", "", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "", ""],
+        ],
+    ),
     # ── Brackets (PC and Mac variants) ────────────────────────────────────
-    ("_BRACKETS_PC", "full", [
-        ["YM_LBRC",  "YM_RBRC",  "YM_LABR",  "YM_RABR",  "YM_CLN",   "YM_CLN",   "YM_LABR",    "YM_RABR",     "YM_LBRC",  "YM_RBRC"],
-        ["YM_LCBR",  "YM_RCBR",  "YM_LPRN",  "YM_RPRN",  "YM_SCLN",  "YM_SCLN",  "YM_LPRN",    "YM_RPRN",     "YM_LCBR",  "YM_RCBR"],
-        ["YM_GRV",   "YM_QUOT",  "YM_DQUO",  "YM_EXCL",  "YM_EQL",   "YM_EQL",   "YM_EXCL",    "YM_DQUO",     "YM_QUOT",  "YM_GRV"],
-        ["",          "",          "KC_NO",      "KC_NO",      "KC_NO",     "KC_NO",     "NP_DLWD",  "NP_DLFW",  "",          ""],
-    ]),
-    ("_BRACKETS_MAC", "full", [
-        ["YM_LBRC",  "YM_RBRC",  "YM_LABR",  "YM_RABR",  "YM_CLN",   "YM_CLN",   "YM_LABR",    "YM_RABR",     "YM_LBRC",  "YM_RBRC"],
-        ["YM_LCBR",  "YM_RCBR",  "YM_LPRN",  "YM_RPRN",  "YM_SCLN",  "YM_SCLN",  "YM_LPRN",    "YM_RPRN",     "YM_LCBR",  "YM_RCBR"],
-        ["YM_GRV",   "YM_QUOT",  "YM_DQUO",  "YM_EXCL",  "YM_EQL",   "YM_EQL",   "YM_EXCL",    "YM_DQUO",     "YM_QUOT",  "YM_GRV"],
-        ["",          "",          "KC_NO",      "KC_NO",      "KC_NO",     "KC_NO",     "NM_DLWD",  "NM_DLFW",  "",          ""],
-    ]),
-
+    (
+        "_BRACKETS_PC",
+        "full",
+        [
+            [
+                "YM_LBRC",
+                "YM_RBRC",
+                "YM_LABR",
+                "YM_RABR",
+                "YM_CLN",
+                "YM_CLN",
+                "YM_LABR",
+                "YM_RABR",
+                "YM_LBRC",
+                "YM_RBRC",
+            ],
+            [
+                "YM_LCBR",
+                "YM_RCBR",
+                "YM_LPRN",
+                "YM_RPRN",
+                "YM_SCLN",
+                "YM_SCLN",
+                "YM_LPRN",
+                "YM_RPRN",
+                "YM_LCBR",
+                "YM_RCBR",
+            ],
+            [
+                "YM_GRV",
+                "YM_QUOT",
+                "YM_DQUO",
+                "YM_EXCL",
+                "YM_EQL",
+                "YM_EQL",
+                "YM_EXCL",
+                "YM_DQUO",
+                "YM_QUOT",
+                "YM_GRV",
+            ],
+            ["", "", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "NP_DLWD", "NP_DLFW", "", ""],
+        ],
+    ),
+    (
+        "_BRACKETS_MAC",
+        "full",
+        [
+            [
+                "YM_LBRC",
+                "YM_RBRC",
+                "YM_LABR",
+                "YM_RABR",
+                "YM_CLN",
+                "YM_CLN",
+                "YM_LABR",
+                "YM_RABR",
+                "YM_LBRC",
+                "YM_RBRC",
+            ],
+            [
+                "YM_LCBR",
+                "YM_RCBR",
+                "YM_LPRN",
+                "YM_RPRN",
+                "YM_SCLN",
+                "YM_SCLN",
+                "YM_LPRN",
+                "YM_RPRN",
+                "YM_LCBR",
+                "YM_RCBR",
+            ],
+            [
+                "YM_GRV",
+                "YM_QUOT",
+                "YM_DQUO",
+                "YM_EXCL",
+                "YM_EQL",
+                "YM_EQL",
+                "YM_EXCL",
+                "YM_DQUO",
+                "YM_QUOT",
+                "YM_GRV",
+            ],
+            ["", "", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "NM_DLWD", "NM_DLFW", "", ""],
+        ],
+    ),
     # ── Numbers (mirrored) ────────────────────────────────────────────────
-    ("_NUMBERS", "mirrored", [
-        ["YM_ASTR",  "KC_9",  "KC_8",  "KC_7",  "YM_PLUS"],
-        ["KC_SLSH",   "KC_6",  "KC_5",  "KC_4",  "KC_MINS"],
-        ["KC_0",      "KC_3",  "KC_2",  "KC_1",  "KC_EQL"],
-        ["",  "",  "KC_COMM",  "KC_DOT",  "KC_ENT",  "KC_NO",  "KC_DOT",  "KC_COMM",  "",  ""],
-    ]),
-
+    (
+        "_NUMBERS",
+        "mirrored",
+        [
+            ["YM_ASTR", "KC_9", "KC_8", "KC_7", "YM_PLUS"],
+            ["KC_SLSH", "KC_6", "KC_5", "KC_4", "KC_MINS"],
+            ["KC_0", "KC_3", "KC_2", "KC_1", "KC_EQL"],
+            [
+                "",
+                "",
+                "KC_COMM",
+                "KC_DOT",
+                "KC_ENT",
+                "KC_NO",
+                "KC_DOT",
+                "KC_COMM",
+                "",
+                "",
+            ],
+        ],
+    ),
     # ── Navigation (PC and Mac, NOT mirrored) ─────────────────────────────
-    ("_NAVIGATION_PC", "full", [
-        ["NP_UNDO",     "NP_CUT",     "NP_COPY",       "NP_PSTE",      "NP_REDO",        "NP_GOBK",      "NP_WDLT",      "NP_GTBR",  "NP_GTBR",  "NP_WDRT"],
-        ["KC_HOME",      "KC_PGDN",     "KC_PGUP",        "KC_END",         "NP_PRNT",       "NP_PRNT",       "KC_LEFT",          "KC_DOWN",        "KC_UP",          "KC_RIGHT"],
-        ["NP_GTLN", "NP_NVBK", "NP_NVFW",     "NP_SWFL", "NP_CMDP",  "NP_CMDP",  "NP_SWFL",   "NP_NVFW",     "NP_NVBK",    "NP_GTLN"],
-        ["",             "",            "NP_SELA",   "NP_SAVE",       "KC_NO",           "KC_NO",           "CK_PC_DLLS",      "CK_PC_DLLE",    "",               ""],
-    ]),
-    ("_NAVIGATION_MAC", "full", [
-        ["NM_UNDO",     "NM_CUT",     "NM_COPY",       "NM_PSTE",      "NM_REDO",        "NM_GOBK",      "NM_WDLT",      "NM_GTBR",  "NM_GTBR",  "NM_WDRT"],
-        ["KC_HOME",      "KC_PGDN",     "KC_PGUP",        "KC_END",         "NM_PRNT",       "NM_PRNT",       "KC_LEFT",          "KC_DOWN",        "KC_UP",          "KC_RIGHT"],
-        ["NM_GTLN", "NM_NVBK", "NM_NVFW",     "NM_SWFL", "NM_CMDP",  "NM_CMDP",  "NM_SWFL",   "NM_NVFW",     "NM_NVBK",    "NM_GTLN"],
-        ["",             "",            "NM_SELA",   "NM_SAVE",       "KC_NO",           "KC_NO",           "NM_DLLS",     "NM_DLLE",   "",               ""],
-    ]),
-
+    (
+        "_NAVIGATION_PC",
+        "full",
+        [
+            [
+                "NP_UNDO",
+                "NP_CUT",
+                "NP_COPY",
+                "NP_PSTE",
+                "NP_REDO",
+                "NP_GOBK",
+                "NP_WDLT",
+                "NP_GTBR",
+                "NP_GTBR",
+                "NP_WDRT",
+            ],
+            [
+                "KC_HOME",
+                "KC_PGDN",
+                "KC_PGUP",
+                "KC_END",
+                "NP_PRNT",
+                "NP_PRNT",
+                "KC_LEFT",
+                "KC_DOWN",
+                "KC_UP",
+                "KC_RIGHT",
+            ],
+            [
+                "NP_GTLN",
+                "NP_NVBK",
+                "NP_NVFW",
+                "NP_SWFL",
+                "NP_CMDP",
+                "NP_CMDP",
+                "NP_SWFL",
+                "NP_NVFW",
+                "NP_NVBK",
+                "NP_GTLN",
+            ],
+            [
+                "",
+                "",
+                "NP_SELA",
+                "NP_SAVE",
+                "KC_NO",
+                "KC_NO",
+                "CK_PC_DLLS",
+                "CK_PC_DLLE",
+                "",
+                "",
+            ],
+        ],
+    ),
+    (
+        "_NAVIGATION_MAC",
+        "full",
+        [
+            [
+                "NM_UNDO",
+                "NM_CUT",
+                "NM_COPY",
+                "NM_PSTE",
+                "NM_REDO",
+                "NM_GOBK",
+                "NM_WDLT",
+                "NM_GTBR",
+                "NM_GTBR",
+                "NM_WDRT",
+            ],
+            [
+                "KC_HOME",
+                "KC_PGDN",
+                "KC_PGUP",
+                "KC_END",
+                "NM_PRNT",
+                "NM_PRNT",
+                "KC_LEFT",
+                "KC_DOWN",
+                "KC_UP",
+                "KC_RIGHT",
+            ],
+            [
+                "NM_GTLN",
+                "NM_NVBK",
+                "NM_NVFW",
+                "NM_SWFL",
+                "NM_CMDP",
+                "NM_CMDP",
+                "NM_SWFL",
+                "NM_NVFW",
+                "NM_NVBK",
+                "NM_GTLN",
+            ],
+            [
+                "",
+                "",
+                "NM_SELA",
+                "NM_SAVE",
+                "KC_NO",
+                "KC_NO",
+                "NM_DLLS",
+                "NM_DLLE",
+                "",
+                "",
+            ],
+        ],
+    ),
     # ── Shortcuts (PC and Mac, mirrored) ──────────────────────────────────
-    ("_SHORTCUTS_PC", "mirrored", [
-        ["SP_SCRN",    "SP_LCMT",      "SP_RPLA",          "SP_FNDA",  "SP_ZMIN"],
-        ["SP_SREG",  "SP_FMTD",   "SP_RPLC",              "SP_FIND",      "SP_ZMOT"],
-        ["SP_SREC",  "SP_GDEF",  "SP_IMPL",  "SP_QFIX",  "SP_CTAB"],
-        ["",  "",  "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "",  ""],
-    ]),
-    ("_SHORTCUTS_MAC", "mirrored", [
-        ["SM_SCRN",    "SM_LCMT",      "SM_RPLA",          "SM_FNDA",  "SM_ZMIN"],
-        ["SM_SREG",  "SM_FMTD",   "SM_RPLC",              "SM_FIND",      "SM_ZMOT"],
-        ["SM_SREC",  "SM_GDEF",  "SM_IMPL",  "SM_QFIX",  "SM_CTAB"],
-        ["",  "",  "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "KC_TRNS",  "",  ""],
-    ]),
-
+    (
+        "_SHORTCUTS_PC",
+        "mirrored",
+        [
+            ["SP_SCRN", "SP_LCMT", "SP_RPLA", "SP_FNDA", "SP_ZMIN"],
+            ["SP_SREG", "SP_FMTD", "SP_RPLC", "SP_FIND", "SP_ZMOT"],
+            ["SP_SREC", "SP_GDEF", "SP_IMPL", "SP_QFIX", "SP_CTAB"],
+            [
+                "",
+                "",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "",
+                "",
+            ],
+        ],
+    ),
+    (
+        "_SHORTCUTS_MAC",
+        "mirrored",
+        [
+            ["SM_SCRN", "SM_LCMT", "SM_RPLA", "SM_FNDA", "SM_ZMIN"],
+            ["SM_SREG", "SM_FMTD", "SM_RPLC", "SM_FIND", "SM_ZMOT"],
+            ["SM_SREC", "SM_GDEF", "SM_IMPL", "SM_QFIX", "SM_CTAB"],
+            [
+                "",
+                "",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "",
+                "",
+            ],
+        ],
+    ),
+    # ── tmux ────────────────────────────────────────────────────────────────
+    (
+        "_TMUX",
+        "full",
+        [
+            [
+                "TM_WN1",
+                "TM_WN2",
+                "TM_WN3",
+                "TM_WN4",
+                "TM_WN5",
+                "TM_WN6",
+                "TM_WN7",
+                "TM_WN8",
+                "TM_WN9",
+                "TM_WN0",
+            ],
+            [
+                "TM_NEW",
+                "TM_PREV",
+                "TM_NEXT",
+                "TM_LAST",
+                "TM_TREE",
+                "TM_TREE",
+                "TM_LEFT",
+                "TM_DOWN",
+                "TM_UP",
+                "TM_RGHT",
+            ],
+            [
+                "TM_SPLH",
+                "TM_SPLV",
+                "TM_ZOOM",
+                "TM_KILL",
+                "TM_RENM",
+                "TM_DET",
+                "TM_RLFT",
+                "TM_RDWN",
+                "TM_RUP",
+                "TM_RRGT",
+            ],
+            [
+                "",
+                "",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "KC_TRNS",
+                "",
+                "",
+            ],
+        ],
+    ),
     # ── Function (mirrored) ───────────────────────────────────────────────
-    ("_FUNCTION", "mirrored", [
-        ["DF(_COLEMAK_PC)",     "KC_F9",  "KC_F8",  "KC_F7",  "KC_F10"],
-        ["DF(_COLEMAK_MAC)",    "KC_F6",  "KC_F5",  "KC_F4",  "KC_F11"],
-        ["DF(_QWERTY_GAMING)",  "KC_F3",  "KC_F2",  "KC_F1",  "KC_F12"],
-        ["",  "",  "KC_NO",  "KC_NO",  "KC_NO",  "KC_NO",  "KC_NO",  "KC_NO",  "",  ""],
-    ]),
+    (
+        "_FUNCTION",
+        "mirrored",
+        [
+            ["DF(_COLEMAK_PC)", "KC_F9", "KC_F8", "KC_F7", "KC_F10"],
+            ["DF(_COLEMAK_MAC)", "KC_F6", "KC_F5", "KC_F4", "KC_F11"],
+            ["DF(_QWERTY_GAMING)", "KC_F3", "KC_F2", "KC_F1", "KC_F12"],
+            ["", "", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "KC_NO", "", ""],
+        ],
+    ),
 ]
 
 
 # ── Static C code ─────────────────────────────────────────────────────────
 
-header = '''\
+header = """\
 /* Copyright 2021 weteor
  *
  * This program is free software: you can redistribute it and/or modify
@@ -201,6 +621,7 @@ enum layers
     _NAVIGATION_MAC,
     _SHORTCUTS_PC,
     _SHORTCUTS_MAC,
+    _TMUX,
     _FUNCTION,
 };
 
@@ -208,6 +629,35 @@ enum layers
 enum custom_keycodes {
     CK_PC_DLLS = SAFE_RANGE, // Delete to line start (Shift+Home, Backspace)
     CK_PC_DLLE,              // Delete to line end (Shift+End, Delete)
+    TM_WN1,
+    TM_WN2,
+    TM_WN3,
+    TM_WN4,
+    TM_WN5,
+    TM_WN6,
+    TM_WN7,
+    TM_WN8,
+    TM_WN9,
+    TM_WN0,
+    TM_NEW,
+    TM_PREV,
+    TM_NEXT,
+    TM_LAST,
+    TM_TREE,
+    TM_LEFT,
+    TM_DOWN,
+    TM_UP,
+    TM_RGHT,
+    TM_SPLH,
+    TM_SPLV,
+    TM_ZOOM,
+    TM_KILL,
+    TM_RENM,
+    TM_DET,
+    TM_RLFT,
+    TM_RDWN,
+    TM_RUP,
+    TM_RRGT,
 };
 
 // Layer-tap: PC
@@ -224,6 +674,10 @@ enum custom_keycodes {
 #define TH_ENT LT(_NUMBERS, KC_ENT)
 #define TH_BSPC LT(_SYMBOLS, KC_BSPC)
 #define TH_DEL LT(_FUNCTION, KC_DEL)
+
+// Layer-tap: tmux, positioned on the inner top-row index keys
+#define TMUX_L LT(_TMUX, KC_B)
+#define TMUX_R LT(_TMUX, KC_J)
 
 // Home row mods
 #define HR_A LGUI_T(KC_A)
@@ -345,6 +799,17 @@ enum custom_keycodes {
 #define SM_QFIX G(KC_DOT)
 #define SM_CTAB G(KC_W)
 
+#define TMUX_FIRST TM_WN1
+#define TMUX_LAST TM_RRGT
+
+static const uint16_t tmux_command_keys[] = {
+    KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
+    KC_C, KC_P, KC_N, KC_L, KC_W,
+    KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
+    KC_H, KC_V, KC_Z, KC_X, KC_COMM, KC_D,
+    S(KC_H), S(KC_J), S(KC_K), S(KC_L),
+};
+
 #define LAYOUT_split_3x5_3_mirrored( \\
     k00, k01, k02, k03, k04, \\
     k10, k11, k12, k13, k14, \\
@@ -358,9 +823,9 @@ LAYOUT_split_3x5_3( \\
     t0, t1, t2,    t3, t4, t5 \\
 )
 
-'''
+"""
 
-footer = '''\
+footer = """\
 
 
 // Define colors for layers
@@ -373,6 +838,7 @@ footer = '''\
 #define BRACKETS_LAYER_COLOR (RGB){0, 50, 50}
 #define NAVIGATION_LAYER_COLOR (RGB){50, 0, 50}
 #define SHORTCUTS_LAYER_COLOR (RGB){25, 0, 50}
+#define TMUX_LAYER_COLOR (RGB){80, 45, 0}
 #define MODIFIER_COLOR (RGB){80, 0, 0}
 
 // LED indices for thumb keys
@@ -441,6 +907,9 @@ bool rgb_matrix_indicators_user(void) {
         case _SHORTCUTS_MAC:
             layer_color = SHORTCUTS_LAYER_COLOR;
             break;
+        case _TMUX:
+            layer_color = TMUX_LAYER_COLOR;
+            break;
         default:
             layer_color = base_color;
             break;
@@ -480,6 +949,14 @@ void keyboard_post_init_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode >= TMUX_FIRST && keycode <= TMUX_LAST) {
+        if (record->event.pressed) {
+            tap_code16(C(KC_A));
+            tap_code16(tmux_command_keys[keycode - TMUX_FIRST]);
+        }
+        return false;
+    }
+
     switch (keycode) {
         // Multi-key macros
         case CK_PC_DLLS:
@@ -512,6 +989,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TH_ENT:
         case TH_BSPC:
         case TH_DEL:
+        case TMUX_L:
+        case TMUX_R:
             rgb_matrix_indicators_user();
             break;
     }
@@ -561,12 +1040,14 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
         case TH_ENT:
         case TH_BSPC:
         case TH_DEL:
+        case TMUX_L:
+        case TMUX_R:
             return true;
         default:
             return false;
     }
 }
-'''
+"""
 
 OUTPUT_PATH = "3w6_rgb/keymaps/default/keymap.c"
 
